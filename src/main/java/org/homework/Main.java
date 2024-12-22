@@ -12,8 +12,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in); // Scanner 객체
 
         int selectedOption = 0;
-        while (selectedOption != Option.EXIT.getOptionNum()) {
-            Option.printOptions(); // 사용자에게 안내 출력 ( 옵션을 선택하세요... )
+        while (selectedOption != Options.EXIT.getNum()) {
+            Options.printOptions(); // 사용자에게 안내 출력 ( 옵션을 선택하세요... )
 
             String inputValue = scanner.nextLine();
 
@@ -21,16 +21,16 @@ public class Main {
                 selectedOption = Integer.parseInt(inputValue);
 
                 // 정규식에는 통과했지만 해당 번호가 Option에서 관리중인 유효한 옵션 넘버인지 확인
-                boolean isValidOptionNum = false;
-                for (int validOption : Option.getIntArrOfOptionNum()) {
+                boolean isValidNum = false;
+                for (int validOption : Options.getIntArrOfOptionNum()) {
                     if (selectedOption == validOption) {
-                        isValidOptionNum = true;
+                        isValidNum = true;
                         break;
                     }
                 }
 
-                if (isValidOptionNum) {
-                    switch (Option.getOptionByNum(selectedOption)) {
+                if (isValidNum) {
+                    switch (Options.getOptionByNum(selectedOption)) {
                         case ADD:
                             Todo.addTodo(scanner, todos);
                             break;
