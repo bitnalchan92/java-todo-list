@@ -25,30 +25,18 @@ public class TodoRepository {
     }
 
     public Todo getTodoById(int todoId) {
-        for (Todo todo : todos) {
-            if (todo.getId() == todoId) {
-                return todo;
-            }
-        }
-
-        return null;
+        return todos.stream()
+                .filter(todo -> todo.getId() == todoId)
+                .findFirst()
+                .orElse(null);
     }
 
     public void deleteTodoById(int todoId) {
-        for (Todo todo : todos) {
-            if (todo.getId() == todoId) {
-                todos.remove(todo);
-                break;
-            }
-        }
+        todos.removeIf(todo -> todo.getId() == todoId);
     }
 
     public void doneTodoById(int todoId) {
-        for (Todo todo : todos) {
-            if (todo.getId() == todoId) {
-                todo.setIsCompleted("완료");
-                break;
-            }
-        }
+        Todo todo = getTodoById(todoId);
+        if (todo != null) todo.setIsCompleted("완료");
     }
 }
