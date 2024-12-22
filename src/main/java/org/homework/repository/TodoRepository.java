@@ -1,14 +1,20 @@
 package org.homework.repository;
 
 import org.homework.domain.Todo;
+import org.homework.func.IDGenerator;
 
 import java.util.ArrayList;
 
 public class TodoRepository {
     private final ArrayList<Todo> todos = new ArrayList<>();
+    private final IDGenerator idGenerator;
+
+    public TodoRepository(IDGenerator idGenerator) {
+        this.idGenerator = idGenerator;
+    }
 
     public int addTodo(Todo todo) {
-        int newTodoId = getNewTodoId(todos);
+        int newTodoId = idGenerator.generateTodoId();
 
         todo.setId(newTodoId);
         todo.setIsCompleted("미완료");
@@ -16,10 +22,6 @@ public class TodoRepository {
         todos.add(todo);
 
         return newTodoId;
-    }
-
-    private int getNewTodoId(ArrayList<Todo> todos) {
-        return todos.size() + 1;
     }
 
     public Todo getTodoById(int todoId) {

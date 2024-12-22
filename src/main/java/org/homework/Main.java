@@ -1,6 +1,7 @@
 package org.homework;
 
 import org.homework.controller.TodoController;
+import org.homework.func.IDGenerator;
 import org.homework.func.InputView;
 import org.homework.func.OutputView;
 import org.homework.repository.TodoRepository;
@@ -12,7 +13,8 @@ public class Main {
     public static void main(String[] args) {
         // DI
         Scanner scanner = new Scanner(System.in);
-        TodoRepository todoRepository = new TodoRepository();
+        IDGenerator idGenerator = new IDGenerator();
+        TodoRepository todoRepository = new TodoRepository(idGenerator);
         TodoService todoService = new TodoService(todoRepository);
 
         InputView inputView = new InputView(scanner);

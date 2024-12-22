@@ -18,37 +18,28 @@ public class TodoController {
     }
 
     public void run() {
-        Options[] options = Options.values();
-        System.out.print("옵션을 선택하세요: ");
-        for (int i = 0; i < options.length; i++) {
-            Options option = options[i];
-            String format = i < options.length - 1 ? "%s.%s, " : "%s.%s ~> ";
+        while(true) {
+            printOptions();
 
-            System.out.printf(format, option.getNum(), option.getName());
-        }
-
-        int optionNum = inputView.getNum();
-        try {
-            if (optionNum == Options.ADD.getNum()) {
-                addTodo();
-                run();
-            } else if (optionNum == Options.DELETE.getNum()) {
-                deleteTodo();
-                run();
-            } else if (optionNum == Options.VIEW.getNum()) {
-                viewTodo();
-                run();
-            } else if (optionNum == Options.DONE.getNum()) {
-                doneTodo();
-                run();
-            } else if (optionNum == Options.EXIT.getNum()) {
-                outputView.printMessage("프로그램을 종료합니다.");
-                System.exit(0);
-            } else {
-                throw new IllegalArgumentException("올바른 옵션을 선택해주세요.");
+            int optionNum = inputView.getNum();
+            try {
+                if (optionNum == Options.ADD.getNum()) {
+                    addTodo();
+                } else if (optionNum == Options.DELETE.getNum()) {
+                    deleteTodo();
+                } else if (optionNum == Options.VIEW.getNum()) {
+                    viewTodo();
+                } else if (optionNum == Options.DONE.getNum()) {
+                    doneTodo();
+                } else if (optionNum == Options.EXIT.getNum()) {
+                    outputView.printMessage("프로그램을 종료합니다.");
+                    return;
+                } else {
+                    throw new IllegalArgumentException("올바른 옵션을 선택해주세요.");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -61,8 +52,6 @@ public class TodoController {
 
         int newTodoId = todoService.addTodo(todo);
         outputView.printMessage("할 일이 추가되었습니다. ID : [" + newTodoId + "]\n");
-
-        run();
     }
 
     private void viewTodo() {
@@ -76,8 +65,6 @@ public class TodoController {
         } else {
             outputView.printTodo(todo);
         }
-
-        run();
     }
 
     private void deleteTodo() {
@@ -90,8 +77,6 @@ public class TodoController {
             todoService.deleteTodoById(todoId);
             outputView.printMessage("할 일이 삭제되었습니다. ID: [" + todoId + "]\n");
         }
-
-        run();
     }
 
     private void doneTodo() {
@@ -106,7 +91,16 @@ public class TodoController {
             todoService.doneTodoById(todoId);
             outputView.printMessage("할 일이 완료 처리되었습니다. ID: [" + todoId + "]\n");
         }
+    }
 
-        run();
+    private void printOptions() {
+        Options[] options = Options.values();
+        System.out.print("옵션을 선택하세요: ");
+        for (int i = 0; i < options.length; i++) {
+            Options option = options[i];
+            String format = i < options.length - 1 ? "%s.%s, " : "%s.%s ~> ";
+
+            System.out.printf(format, option.getNum(), option.getName());
+        }
     }
 }
