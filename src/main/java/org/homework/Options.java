@@ -5,7 +5,8 @@ public enum Options {
     DELETE(2, "삭제"), // 할 일 삭제
     VIEW(3, "조회"), // 할 일 조회
     DONE(4, "완료"), // 할 일 완료
-    EXIT(5, "종료"); // 프로그램 종료
+    EXIT(5, "종료"), // 프로그램 종료
+    ERROR(99, "");
 
     final private int num;
     final private String name;
@@ -21,5 +22,14 @@ public enum Options {
 
     public String getName() {
         return name;
+    }
+
+    public static Options of(int num) {
+        for (Options option : Options.values()) {
+            if (option.num == num) {
+                return option;
+            }
+        }
+        return ERROR;
     }
 }

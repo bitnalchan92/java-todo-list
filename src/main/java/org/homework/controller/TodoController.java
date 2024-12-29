@@ -19,36 +19,30 @@ public class TodoController {
     public void run() {
         while (true) {
             inputView.printOptions();
-
-            int optionNum = inputView.getOptionNum();
-            try {
-                if (optionNum == Options.ADD.getNum()) {
+            Options option = Options.of(inputView.getOptionNum());
+            switch (option) {
+                case ADD:
                     String newContent = inputView.getNewTodoContent();
                     outputView.printAddResult(todoService.addTodo(newContent));
-
-                } else if (optionNum == Options.DELETE.getNum()) {
-                    int todoId = Integer.parseInt(inputView.getDeleteId());
-                    outputView.printDeleteResult(todoService.deleteTodoById(todoId));
-
-                } else if (optionNum == Options.VIEW.getNum()) {
-                    int todoId = Integer.parseInt(inputView.getViewId());
-                    outputView.printViewResult(todoService.getTodoById(todoId));
-
-                } else if (optionNum == Options.DONE.getNum()) {
+                    break;
+                case DELETE:
+                    int deleteId = Integer.parseInt(inputView.getDeleteId());
+                    outputView.printDeleteResult(todoService.deleteTodoById(deleteId));
+                    break;
+                case VIEW:
+                    int viewId = Integer.parseInt(inputView.getViewId());
+                    outputView.printViewResult(todoService.getTodoById(viewId));
+                    break;
+                case DONE:
                     int todoId = Integer.parseInt(inputView.getDoneId());
                     outputView.printDoneResult(todoService.doneTodoById(todoId));
-
-                } else if (optionNum == Options.EXIT.getNum()) {
+                    break;
+                case EXIT:
                     inputView.closeScanner();
                     outputView.printExit();
                     return;
-
-                } else {
-                    throw new IllegalArgumentException("올바른 옵션을 선택해주세요.");
-                    
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+                default:
+                    outputView.printError();
             }
         }
     }
