@@ -10,7 +10,10 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    public int addTodo(Todo todo) {
+    public int addTodo(String newContent) {
+        Todo todo = new Todo();
+        todo.setContent(newContent);
+
         return todoRepository.addTodo(todo);
     }
 

@@ -18,13 +18,14 @@ public class TodoController {
     }
 
     public void run() {
-        while(true) {
-            outputView.printOptions();
+        while (true) {
+            inputView.printOptions();
 
             int optionNum = inputView.getNum();
             try {
                 if (optionNum == Options.ADD.getNum()) {
-                    addTodo();
+                    String newContent = inputView.getNewTodoContent();
+                    outputView.printAddResult(todoService.addTodo(newContent));
                 } else if (optionNum == Options.DELETE.getNum()) {
                     deleteTodo();
                 } else if (optionNum == Options.VIEW.getNum()) {
@@ -41,17 +42,6 @@ public class TodoController {
                 e.printStackTrace();
             }
         }
-    }
-
-    private void addTodo() {
-        Todo todo = new Todo();
-
-        outputView.printMessage("새로운 할 일을 입력해주세요 ~> ");
-        String content = inputView.getString();
-        todo.setContent(content);
-
-        int newTodoId = todoService.addTodo(todo);
-        outputView.printMessage("할 일이 추가되었습니다. ID : [" + newTodoId + "]\n");
     }
 
     private void viewTodo() {
