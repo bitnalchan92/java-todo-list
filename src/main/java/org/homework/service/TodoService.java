@@ -19,7 +19,7 @@ public class TodoService {
     }
 
     public Todo getTodoById(int todoId) {
-        return todoRepository.getTodoById(todoId);
+        return todoRepository.getTodoById(todoId).orElse(null);
     }
 
     public void doneTodoById(int todoId) {

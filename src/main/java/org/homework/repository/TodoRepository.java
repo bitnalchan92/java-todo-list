@@ -4,6 +4,7 @@ import org.homework.domain.Todo;
 import org.homework.func.IDGenerator;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class TodoRepository {
     private final ArrayList<Todo> todos = new ArrayList<>();
@@ -21,19 +22,18 @@ public class TodoRepository {
         return newTodoId;
     }
 
-    public Todo getTodoById(int todoId) {
+    public Optional<Todo> getTodoById(int todoId) {
         return todos.stream()
                 .filter(todo -> todo.getId() == todoId)
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     public void deleteTodoById(int todoId) {
         todos.removeIf(todo -> todo.getId() == todoId);
     }
 
+
     public void doneTodoById(int todoId) {
-        Todo todo = getTodoById(todoId);
-        if (todo != null) todo.setIsCompleted(true);
+        getTodoById(todoId).ifPresent(todo -> todo.setIsCompleted(true));
     }
 }
