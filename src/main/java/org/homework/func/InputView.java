@@ -22,6 +22,10 @@ public class InputView {
         }
     }
 
+    public int getOptionNum() {
+        return Integer.parseInt(scanner.nextLine());
+    }
+
     public String getNewTodoContent() {
         System.out.print("새로운 할 일을 입력해주세요 ~> ");
         return scanner.nextLine();
@@ -37,12 +41,12 @@ public class InputView {
         return scanner.nextLine();
     }
 
-
-    public int getNum() {
-        return Integer.parseInt(scanner.nextLine());
+    public String getDoneId() {
+        System.out.print("완료하려는 할 일의 고유번호(ID)를 입력해주세요 ~> ");
+        return scanner.nextLine();
     }
 
-    public String getString() {
-        return scanner.nextLine();
+    public void closeScanner() {
+        scanner.close();
     }
 }

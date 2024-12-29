@@ -12,6 +12,10 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
+    public Todo getTodoById(int todoId) {
+        return todoRepository.getTodoById(todoId).orElse(null);
+    }
+
     public int addTodo(String newContent) {
         Todo todo = new Todo();
         todo.setContent(newContent);
@@ -30,11 +34,14 @@ public class TodoService {
         return -1;
     }
 
-    public Todo getTodoById(int todoId) {
-        return todoRepository.getTodoById(todoId).orElse(null);
-    }
+    public int doneTodoById(int todoId) {
+        Optional<Todo> todo = todoRepository.getTodoById(todoId);
 
-    public void doneTodoById(int todoId) {
-        todoRepository.doneTodoById(todoId);
+        if (todo.isPresent()) {
+            todoRepository.doneTodoById(todoId);
+            return todoId;
+        }
+
+        return -1;
     }
 }
