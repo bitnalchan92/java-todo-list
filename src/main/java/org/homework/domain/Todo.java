@@ -3,7 +3,7 @@ package org.homework.domain;
 public class Todo {
     private int id; // 고유 ID
     private String content; // 설명
-    private String isCompleted; // 완료 여부
+    private boolean isCompleted = false; // 완료 여부
 
     public int getId() {
         return id;
@@ -21,11 +21,11 @@ public class Todo {
         this.content = content;
     }
 
-    public String getIsCompleted() {
+    public boolean getIsCompleted() {
         return isCompleted;
     }
 
-    public void setIsCompleted(String isCompleted) {
+    public void setIsCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
 }

@@ -15,10 +15,7 @@ public class TodoRepository {
 
     public int addTodo(Todo todo) {
         int newTodoId = idGenerator.generateTodoId();
-
         todo.setId(newTodoId);
-        todo.setIsCompleted("미완료");
-
         todos.add(todo);
 
         return newTodoId;
@@ -37,6 +34,6 @@ public class TodoRepository {
 
     public void doneTodoById(int todoId) {
         Todo todo = getTodoById(todoId);
-        if (todo != null) todo.setIsCompleted("완료");
+        if (todo != null) todo.setIsCompleted(true);
     }
 }

@@ -10,6 +10,6 @@ public class OutputView {
     public void printTodo(Todo todo) {
         System.out.println("* 할 일 ID  : " + todo.getId());
         System.out.println("* 할 일 내용 : " + todo.getContent());
-        System.out.println("* 할 일 상태 : " + todo.getIsCompleted());
+        System.out.println("* 할 일 상태 : " + (todo.getIsCompleted() ? "완료" : "미완료"));
     }
 }
