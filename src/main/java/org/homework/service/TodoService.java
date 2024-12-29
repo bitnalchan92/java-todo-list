@@ -3,6 +3,8 @@ package org.homework.service;
 import org.homework.domain.Todo;
 import org.homework.repository.TodoRepository;
 
+import java.util.Optional;
+
 public class TodoService {
     private final TodoRepository todoRepository;
 
@@ -17,8 +19,15 @@ public class TodoService {
         return todoRepository.addTodo(todo);
     }
 
-    public void deleteTodoById(int todoId) {
-        todoRepository.deleteTodoById(todoId);
+    public int deleteTodoById(int todoId) {
+        Optional<Todo> todo = todoRepository.getTodoById(todoId);
+
+        if (todo.isPresent()) {
+            todoRepository.deleteTodoById(todoId);
+            return todoId;
+        }
+
+        return -1;
     }
 
     public Todo getTodoById(int todoId) {

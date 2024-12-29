@@ -8,6 +8,11 @@ public class OutputView {
     }
 
     public void printTodo(Todo todo) {
+        if (todo == null) {
+            System.out.println("조회하려는 할 일이 없습니다.");
+            return;
+        }
+
         System.out.println("* 할 일 ID  : " + todo.getId());
         System.out.println("* 할 일 내용 : " + todo.getContent());
         System.out.println("* 할 일 상태 : " + (todo.getIsCompleted() ? "완료" : "미완료"));
@@ -15,5 +20,9 @@ public class OutputView {
 
     public void printAddResult(int newTodoId) {
         System.out.println("할 일이 추가되었습니다. ID : [" + newTodoId + "]");
+    }
+
+    public void printDeleteResult(int deleteTodoId) {
+        System.out.println(deleteTodoId == -1 ? "삭제하려는 할 일이 없습니다." : "할 일이 삭제되었습니다. ID : [" + deleteTodoId + "]");
     }
 }

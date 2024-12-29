@@ -26,11 +26,15 @@ public class TodoController {
                 if (optionNum == Options.ADD.getNum()) {
                     String newContent = inputView.getNewTodoContent();
                     outputView.printAddResult(todoService.addTodo(newContent));
+
                 } else if (optionNum == Options.DELETE.getNum()) {
-                    deleteTodo();
+                    int todoId = Integer.parseInt(inputView.getDeleteId());
+                    outputView.printDeleteResult(todoService.deleteTodoById(todoId));
+
                 } else if (optionNum == Options.VIEW.getNum()) {
-                    int todoId = Integer.parseInt(inputView.getViewTodoId());
+                    int todoId = Integer.parseInt(inputView.getViewId());
                     outputView.printTodo(todoService.getTodoById(todoId));
+
                 } else if (optionNum == Options.DONE.getNum()) {
                     doneTodo();
                 } else if (optionNum == Options.EXIT.getNum()) {
@@ -42,18 +46,6 @@ public class TodoController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    private void deleteTodo() {
-        outputView.printMessage("삭제하고자 하는 할 일의 고유번호(ID)를 입력해주세요 ~> ");
-        int todoId = inputView.getNum();
-
-        if (todoService.getTodoById(todoId) == null) {
-            outputView.printMessage("해당 ID의 할 일이 없습니다.\n");
-        } else {
-            todoService.deleteTodoById(todoId);
-            outputView.printMessage("할 일이 삭제되었습니다. ID: [" + todoId + "]\n");
         }
     }
 
