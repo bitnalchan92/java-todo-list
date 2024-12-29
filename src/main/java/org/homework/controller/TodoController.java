@@ -19,7 +19,7 @@ public class TodoController {
 
     public void run() {
         while(true) {
-            printOptions();
+            outputView.printOptions();
 
             int optionNum = inputView.getNum();
             try {
@@ -90,17 +90,6 @@ public class TodoController {
         } else {
             todoService.doneTodoById(todoId);
             outputView.printMessage("할 일이 완료 처리되었습니다. ID: [" + todoId + "]\n");
-        }
-    }
-
-    private void printOptions() {
-        Options[] options = Options.values();
-        System.out.print("옵션을 선택하세요: ");
-        for (int i = 0; i < options.length; i++) {
-            Options option = options[i];
-            String format = i < options.length - 1 ? "%s.%s, " : "%s.%s ~> ";
-
-            System.out.printf(format, option.getNum(), option.getName());
         }
     }
 }
