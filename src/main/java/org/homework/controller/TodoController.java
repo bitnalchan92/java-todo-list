@@ -29,7 +29,8 @@ public class TodoController {
                 } else if (optionNum == Options.DELETE.getNum()) {
                     deleteTodo();
                 } else if (optionNum == Options.VIEW.getNum()) {
-                    viewTodo();
+                    int todoId = Integer.parseInt(inputView.getViewTodoId());
+                    outputView.printTodo(todoService.getTodoById(todoId));
                 } else if (optionNum == Options.DONE.getNum()) {
                     doneTodo();
                 } else if (optionNum == Options.EXIT.getNum()) {
@@ -41,19 +42,6 @@ public class TodoController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    private void viewTodo() {
-        outputView.printMessage("조회하고자 하는 할 일의 고유번호(ID)를 입력해주세요 ~> ");
-        int todoId = inputView.getNum();
-
-        Todo todo = todoService.getTodoById(todoId);
-
-        if (todo == null) {
-            outputView.printMessage("해당 ID의 할 일이 없습니다.\n");
-        } else {
-            outputView.printTodo(todo);
         }
     }
 

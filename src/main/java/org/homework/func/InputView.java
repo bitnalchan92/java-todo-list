@@ -27,6 +27,11 @@ public class InputView {
         return scanner.nextLine();
     }
 
+    public String getViewTodoId() {
+        System.out.print("조회하고자 하는 할 일의 고유번호(ID)를 입력해주세요 ~> ");
+        return scanner.nextLine();
+    }
+
     public int getNum() {
         return Integer.parseInt(scanner.nextLine());
     }
